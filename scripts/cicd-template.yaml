@@ -288,10 +288,6 @@ objects:
       spec:
         containers:
         - env:
-          - name: "HTTP_PROXY"
-            value: "http://proxy.true.th:80"
-          - name: "HTTPS_PROXY"
-            value: "http://proxy.true.th:80"
           - name: CICD_NAMESPACE
             valueFrom:
               fieldRef:
@@ -301,7 +297,7 @@ objects:
           - -x
           - -c
           - |
-            oc set resources dc/jenkins --limits=memory=1Gi --requests=memory=512Mi 
+            oc set resources dc/jenkins --limits=memory=1Gi --requests=memory=512Mi HTTP_PROXY=http://proxy.true.th:80 HTTPS_PROXY=http://proxy.true.th:80
             oc set env dc/jenkins INSTALL_PLUGINS=analysis-core:1.92,findbugs:4.71,pmd:3.49,checkstyle:3.49,dependency-check-jenkins-plugin:2.1.1,htmlpublisher:1.14,jacoco:2.2.1,analysis-collector:1.52,pipeline-utility-steps:1.5.1 OVERRIDE_PV_PLUGINS_WITH_IMAGE_PLUGINS=true
             oc label dc jenkins app=jenkins --overwrite 
 
