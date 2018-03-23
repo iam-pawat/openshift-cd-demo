@@ -301,6 +301,8 @@ objects:
           - -x
           - -c
           - |
+            export https_proxy=http://proxy.true.th:80
+            export http_proxy=http://proxy.true.th:80
             oc set resources dc/jenkins --limits=memory=1Gi --requests=memory=512Mi 
             oc set env dc/jenkins INSTALL_PLUGINS=analysis-core:1.92,findbugs:4.71,pmd:3.49,checkstyle:3.49,dependency-check-jenkins-plugin:2.1.1,htmlpublisher:1.14,jacoco:2.2.1,analysis-collector:1.52,pipeline-utility-steps:1.5.1 OVERRIDE_PV_PLUGINS_WITH_IMAGE_PLUGINS=true
             oc label dc jenkins app=jenkins --overwrite 
@@ -323,7 +325,7 @@ objects:
             sleep 5
 
             if [ "${WITH_SONAR}" == "true" ] ; then
-              oc new-app -f http://bit.ly/openshift-sonarqube-embedded-template --param=SONARQUBE_VERSION=6.7 --param=SONAR_MAX_MEMORY=4Gi
+              oc new-app -f https://raw.githubusercontent.com/OpenShiftDemos/sonarqube-openshift-docker/master/sonarqube-template.yaml --param=SONARQUBE_VERSION=6.7 --param=SONAR_MAX_MEMORY=4Gi
             fi
 
             if [ "${WITH_CHE}" == "true" ] ; then
