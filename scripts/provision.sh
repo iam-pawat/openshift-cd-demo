@@ -157,10 +157,10 @@ function deploy() {
 
   sleep 2
 
-  local template=https://raw.githubusercontent.com/$GITHUB_ACCOUNT/openshift-cd-demo/$GITHUB_REF/cicd-template.yaml
+  #local template=https://raw.githubusercontent.com/$GITHUB_ACCOUNT/openshift-cd-demo/$GITHUB_REF/cicd-template.yaml
+  local template=https://raw.githubusercontent.com/iam-pawat/openshift-cd-demo/ocp-3.7/scripts/cicd-template.yaml
   echo "Using template $template"
-  #oc $ARG_OC_OPS new-app -f $template --param DEV_PROJECT=dev-$PRJ_SUFFIX --param STAGE_PROJECT=stage-$PRJ_SUFFIX --param=WITH_SONAR=$ARG_DEPLOY_SONAR --param=WITH_CHE=$ARG_DEPLOY_CHE --param=EPHEMERAL=$ARG_EPHEMERAL -n cicd-$PRJ_SUFFIX
-  oc $ARG_OC_OPS new-app -f ./cicd-template.yaml --param DEV_PROJECT=dev-$PRJ_SUFFIX --param STAGE_PROJECT=stage-$PRJ_SUFFIX --param=WITH_SONAR=$ARG_DEPLOY_SONAR --param=WITH_CHE=$ARG_DEPLOY_CHE --param=EPHEMERAL=$ARG_EPHEMERAL -n cicd-$PRJ_SUFFIX
+  oc $ARG_OC_OPS new-app -f $template --param DEV_PROJECT=dev-$PRJ_SUFFIX --param STAGE_PROJECT=stage-$PRJ_SUFFIX --param=WITH_SONAR=$ARG_DEPLOY_SONAR --param=WITH_CHE=$ARG_DEPLOY_CHE --param=EPHEMERAL=$ARG_EPHEMERAL -n cicd-$PRJ_SUFFIX
 }
 
 function make_idle() {

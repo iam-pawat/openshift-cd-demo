@@ -288,6 +288,10 @@ objects:
       spec:
         containers:
         - env:
+          - name: "HTTP_PROXY"
+            value: "http://proxy.true.th:80"
+          - name: "HTTPS_PROXY"
+            value: "http://proxy.true.th:80"
           - name: CICD_NAMESPACE
             valueFrom:
               fieldRef:
@@ -303,9 +307,6 @@ objects:
 
             HOSTNAME=$(oc get route jenkins -o template --template='{{.spec.host}}' | sed "s/jenkins-${CICD_NAMESPACE}.//g")
             GOGS_HOSTNAME="gogs-$CICD_NAMESPACE.$HOSTNAME"
-
-            export http_proxy=http://proxy.true.th:80
-            export https_proxy=http://proxy.true.th:80
 
             if [ "${EPHEMERAL}" == "true" ] ; then
               oc new-app -f https://raw.githubusercontent.com/OpenShiftDemos/gogs-openshift-docker/master/openshift/gogs-template.yaml \
