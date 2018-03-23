@@ -288,6 +288,10 @@ objects:
       spec:
         containers:
         - env:
+          - name: "HTTP_PROXY"
+            value: "http://proxy.true.th:80"
+          - name: "HTTPS_PROXY"
+            value: "http://proxy.true.th:80"
           - name: CICD_NAMESPACE
             valueFrom:
               fieldRef:
