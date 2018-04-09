@@ -290,19 +290,25 @@ objects:
         - env:
           - name: "HTTP_PROXY"
             value: "http://proxy.true.th:80"
+          - name: "http_proxy"
+            value: "http://proxy.true.th:80"
           - name: "HTTPS_PROXY"
             value: "http://proxy.true.th:80"
+          - name: "https_proxy"
+            value: "http://proxy.true.th:80"
+          - name: "NO_PROXY"
+            value: "127.0.0.1,172.16.46.42,localhost,172.30.1.1,172.30.1.2,172.30.0.0.0/8"
+          - name: "no_proxy"
+            value: "127.0.0.1,172.16.46.42,localhost,172.30.1.1,172.30.1.2,172.30.0.0.0/8"
           - name: CICD_NAMESPACE
             valueFrom:
               fieldRef:
                 fieldPath: metadata.namespace
           command:
-          - /bin/bash
+          - /bin/bash 
           - -x
           - -c
           - |
-            export https_proxy=http://proxy.true.th:80
-            export http_proxy=http://proxy.true.th:80
             oc set resources dc/jenkins --limits=memory=1Gi --requests=memory=512Mi 
             oc set env dc/jenkins INSTALL_PLUGINS=analysis-core:1.92,findbugs:4.71,pmd:3.49,checkstyle:3.49,dependency-check-jenkins-plugin:2.1.1,htmlpublisher:1.14,jacoco:2.2.1,analysis-collector:1.52,pipeline-utility-steps:1.5.1 OVERRIDE_PV_PLUGINS_WITH_IMAGE_PLUGINS=true
             oc label dc jenkins app=jenkins --overwrite 
